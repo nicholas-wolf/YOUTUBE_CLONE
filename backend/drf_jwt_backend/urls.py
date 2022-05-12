@@ -21,5 +21,5 @@ urlpatterns = [
     path('api/auth/', include('authentication.urls')),
     path('api/cars/', include('cars.urls')),
     path('api/comments/', include('Comment.urls') ),
-    # path('api/replies/', include('Reply.urls') ),
+    path('api/replies/', include('Reply.urls') ),
 ]

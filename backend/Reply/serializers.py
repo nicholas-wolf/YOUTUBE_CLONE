@@ -7,5 +7,5 @@ from .models import Reply
 class ReplySerializer(serializers.ModelSerializer):
     class Meta:
         model = Reply
-        fields = ['id', 'user', 'comment', 'text']
-        depth = 1
+        fields = ['user', 'comment', 'text']
+       
