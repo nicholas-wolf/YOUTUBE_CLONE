@@ -18,7 +18,7 @@ def get_all_comments(request, pk):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['PUT'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def edit_comment(request, pk):
     print('User ' + request.user.email) 
 
