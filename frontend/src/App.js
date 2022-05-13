@@ -15,10 +15,12 @@ import Footer from "./components/Footer/Footer";
 import PrivateRoute from "./utils/PrivateRoute";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 
+
 function App() {
   return (
     <div>
-      <VideoPlayer></VideoPlayer>
+     
+      <VideoPlayer/>
       <Navbar />
       <Routes>
         <Route
