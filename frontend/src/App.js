@@ -13,7 +13,7 @@ import Footer from "./components/Footer/Footer";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
-import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
+// import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import SearchBar from "./components/SearchBar/SearchBar";
 import CommentForm from "./components/CommentForm/CommentForm";
 function App() {
