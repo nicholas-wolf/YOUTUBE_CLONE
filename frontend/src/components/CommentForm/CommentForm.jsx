@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
-class CommentCreator extends Component{
+class CommentForm extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -57,4 +57,4 @@ class CommentCreator extends Component{
     }
 }
 
-export default CommentCreator;
+export default CommentForm;
