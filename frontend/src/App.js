@@ -14,12 +14,12 @@ import Footer from "./components/Footer/Footer";
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
-
+import SearchBar from "./components/SearchBar/SearchBar";
 
 function App() {
   return (
     <div>
-     
+      <SearchBar/>
       <VideoPlayer/>
       <Navbar />
       <Routes>
