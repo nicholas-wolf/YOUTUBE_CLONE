@@ -1,39 +1,61 @@
-import React, { Component } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import CommentForm from '../CommentForm/CommentForm';
-class Reply extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            show: false
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import useAuth from '../../hooks/useAuth';
+import './DisplayReplies.css'
+ 
+
+const DisplayReplies = (props) => {
+    const [replies, setReplies] = useState()
+    const [user, token] = useAuth()
+
+
+    useEffect(()=>{
+    const fetchReplies = async ()=>{
+        try {
+            
+        
+            
+        
+        let response = await axios.get(`http://127.0.0.1:8000/api/comments/${props.commentId}/`, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+            
+        }
+      
+
+        )
+        setReplies(response.data)
+        console.log(response.data)
+    }
+        catch (error) {
+            console.log(error.message)
         }
     }
+    fetchReplies()
 
-    hideModal = () => {
-        this.setState({show: false})
-    }
+},[token]
+)
 
-    render(){
-        return(
-            <React.Fragment>
-                <Button className='btn btn-primary btn-sm' onClick={() => {this.setState({show: true})}}>Reply</Button>
-                <Modal show={this.state.show} onHide={() => this.setState({show: false})} backdrop="static">
-                <Modal.Header closeButton>
-                    <Modal.Title>Reply</Modal.Title>
-                        </Modal.Header>
-                            <Modal.Body>
-                                <CommentForm videoId={this.props.videoId} replyId={this.props.replyId} refresh={this.props.refresh} hide={this.hideModal}/>
-                            </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={() => this.setState({show: false})}>
-                            Close
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </React.Fragment>
-        )
-    }
+    return ( 
+        <div>
+          <div>
+     
+     {replies &&
+       replies.map((reply) => (
+         <p key={reply.id}>
+              <h3 className='reply-heading'>REPLIES:</h3>
+             <div className='reply-container'>
+            
+             <p className='reply-text'>
+           {reply.text}
+           </p>
+           </div>
+         </p>
+       ))}
+   </div>
+        </div>
+     );
 }
-
-export default Reply;
+ 
+export default DisplayReplies;
