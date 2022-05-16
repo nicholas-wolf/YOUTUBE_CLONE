@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import {DATA} from '../../localData'
-import SearchPageCards from '../SearchPageCards/SearchPageCards';
+import { VIDEODATA } from '../../VideoData';
 
 
 const SearchPage = (props) => {
 
-    const [searchResults, setSearchResults] = useState(DATA)
+    const [searchResults, setSearchResults] = useState(VIDEODATA)
     const {searchQuery} = useParams()
 
     useEffect(() => {
