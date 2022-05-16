@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import "./NavBar.css";
 
+
 const Navbar = () => {
   const { logoutUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -14,6 +15,9 @@ const Navbar = () => {
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
             <b>YouTube Clone</b>
           </Link>
+        </li>
+        <li>
+        <button><a href="/results/">Search</a></button>
         </li>
         <li>
           {user ? (

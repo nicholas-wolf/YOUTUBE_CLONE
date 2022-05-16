@@ -18,15 +18,18 @@ import Footer from "./components/Footer/Footer";
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
 import { useEffect, useState } from "react";
-import SearchPage from "./pages/SearchPage/SearchPage";
-import SearchBar from "./components/SearchBar/SearchBar";
+import useAuth from "./hooks/useAuth";
+import CommentPage from './pages/CommentPage/CommentPage';
+import { useParams } from "react-router-dom";
+
 
 
 function App() {
-  const [suggestedVideos, setSuggestedVideos] = useState(VIDEODATA);
-  const [relatedVideos, setRelatedVideos] =useState(VIDEODATA);
-  const [comments, setComments] = useState([])
-  const [searchedVideos, setSearchedVideos] = useState([])
+  const [user, token] = useAuth();
+  const [searchObject, setSearchObject] = useState()
+  const [videoData, setVideoData] = useState()
+  const { video } = useParams();
+  const [comments, setComments] = useState();
 
 
   async function getVideoComments(videoId){
@@ -34,29 +37,50 @@ function App() {
     setComments(response.data);
   }
 
-  async function searchVideos(searchQuery){
-    let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchQuery}&key=AIzaSyDhfnwEvEuZjfnIgfxvbAKgZW-XvFnd2Xc&type=video&part=snippet&fields=items(snippet)&maxResults=10`)
-    setSearchedVideos(response.data)
-    console.log('sv', searchedVideos)
-  }
+  async function handleSearch(event) {
+    event.preventDefault()
+      try {
+        let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchObject}&type=video&key=AIzaSyCVVxJokbV2pHocNye7rQ3l1tV_FNbCPVU&part=snippet`);
+        setVideoData(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    async function fetchComments(video) {
+ 
+      try {
+        let response = await axios.get(`http://127.0.0.1:8000/api/comments/all/?video_id=${video}`);
+        setComments(response.data);
+      
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    
+    console.log(defaultData)
+    console.log(video)
+    console.log(comments)
+    
+    console.log(comments)
   return (
     <div>
       
       <Navbar />
-      <SearchBar submitSearch={searchVideos}/>
+      
       <Routes>
         <Route
           path="/"
           element={
             <PrivateRoute>
-              <HomePage videos={suggestedVideos}/>
+              <HomePage handleSearch={handleSearch} setSearchObject={setSearchObject} videoData={VIDEODATA} />
             </PrivateRoute>
           }
         />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/video/:videoId" element={<VideoPage videos={relatedVideos} comments={comments} getVideoComments={getVideoComments}/>} />
-        <Route path="/results" element={<SearchPage videos={searchedVideos}/>} />
+        <Route path="/CommentPage/:commentId/" element={<PrivateRoute><CommentPage comments={comments}/></PrivateRoute>} />
       </Routes>
       <Footer />
     </div>
