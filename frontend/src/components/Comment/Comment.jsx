@@ -3,11 +3,12 @@ import AddCommentModal from "../AddComentModal/AddCommentModal";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import "./DisplayComments.css";
-import PostReply from "../PostReply/PostReply";
-import DisplayReplies from "../DisplayReplies/DisplayReplies";
+import ReplyForm from "../ReplyForm/ReplyForm";
+import DisplayReplies from "../Reply/Reply";
 import LikeAndDislike from "../LikeAndDislike/LikeAndDislike";
 import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import CommentForm from '../CommentForm/CommentForm';
 
 
 const DisplayComments = (props) => {
@@ -34,8 +35,8 @@ const DisplayComments = (props) => {
 
   return (
     <div className="main_container">
-      <PostReply modal={modal} comment={commentId} onClose={()=>setModal(false)}/>
-      <AddCommentModal
+      <ReplyForm modal={modal} comment={commentId} onClose={()=>setModal(false)}/>
+      <CommentForm
         comment={commentId}
         video={props.video}
         comments={props.comments}
