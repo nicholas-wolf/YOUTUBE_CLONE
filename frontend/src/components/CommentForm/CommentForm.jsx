@@ -1,59 +1,56 @@
-import React, { Component } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import axios from 'axios';
+import React from "react"
+import { Navigate, useNavigate } from "react-router-dom"
+import useAuth from "../../hooks/useAuth"
+import useCustomForm from "../../hooks/useCustomForm"
+import axios from 'axios'
 
-class CommentForm extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            text: "",
-            videoID: "",
-        }
-    }
+let initialValues = {
+        user: "3",
+        video_id: "1",
+        text: "",
+        likes: "0",
+        dislikes: "0"
+};
 
-    addComment = async () => {
-        let comment = {
-            text: this.state.text,
-            videoID: "M7lc1UVf-VE"
-        } 
+
+
+const CommentForm = (props) =>{
+    const [user, token] = useAuth();
+    const navigate = useNavigate();
+    const [formData, handleInputChange, handleSubmit] = useCustomForm(
+        initialValues, 
+        postNewComment
+        );
+
+    async function postNewComment(){
         try {
-            await axios.post('http://127.0.0.1:8000/api/comments/post', comment)
-            .then((res) => console.log(res.data))
-            this.setState({
-                name: '',
-                comment: '',
-            });
+            let response = await axios.post('http://127.0.0.1:8000/api/comments/post/', formData, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            })
+            navigate("/")
+        } catch (error) {
+            console.log(error.message);
         }
-        catch (err) {
-            alert(err);
-        }
+
     }
 
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.addComment();
-    }
-
-    render() { 
-        return ( 
-            <div className="container jumbotron small" style={{maxHeight: '30vh'}}>
-                <h3>Comment</h3>
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="comment">
-                        <Form.Control type="text" placeholder="Leave a comment..." name='text' value={this.state.text} onChange={this.handleChange}/>
-                    </Form.Group>           
-                    <Button variant="primary" type="submit">Add Comment</Button>
-                </Form>
-            </div>
-         );
-    }
+    return (
+        <div className="container">
+            <form className="form" onSubmit={handleSubmit}>
+                <label>
+                    Comment:{" "}
+                    <input 
+                        type="text"
+                        name="text"
+                        value={formData.text}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <button type="submit">SUBMIT COMMENT</button>
+            </form>
+        </div>
+    )
 }
-
-export default CommentForm;
+export default CommentForm
