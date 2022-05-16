@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -19,7 +18,7 @@ class CommentForm extends Component{
             videoID: "M7lc1UVf-VE"
         } 
         try {
-            await axios.post('http://localhost:3000/api/comments/', comment)
+            await axios.post('http://127.0.0.1:8000/api/comments/post', comment)
             .then((res) => console.log(res.data))
             this.setState({
                 name: '',

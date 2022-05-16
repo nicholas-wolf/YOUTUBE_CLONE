@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import Reply from '../Reply/Reply';
+import Replies from '../Replies/Replies';
 import CommentForm from '../CommentForm/CommentForm';
 
 
@@ -28,7 +28,7 @@ class Comment extends Component{
 
 
     getComments = async () => {
-        let response = await axios.get(`http://localhost:3000/api/comments/get/${this.props.videoId}`);
+        let response = await axios.get(`http://127.0.0.1:8000/api/comments/get/${this.props.videoId}`);
         let allComments = response.data;
         let parentComments = [];
         let replies = [];
@@ -77,7 +77,7 @@ class Comment extends Component{
                                     <Button className='btn btn-danger btn-sm' onClick={() => this.dislikeComment(parent.id)}>Dislike ({parent.dislikes})</Button>
                                 </div>
                                 <div className='col-sm-4 text-center mt-2 mt-sm-0'>
-                                    <Reply videoId={this.props.videoId} replyId={parent.id} refresh={this.getInitialState}/>
+                                    <Replies videoId={this.props.videoId} replyId={parent.id} refresh={this.getInitialState}/>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@ class Comment extends Component{
 
     likeComment = async (commentId) => {
         try{
-            await axios.get(`http://localhost:3000/api/comments/like/${commentId}`);
+            await axios.get(`http://127.0.0.1:8000/api/comments/like/${commentId}`);
             this.getInitialState()
         }
         catch(err){
@@ -102,7 +102,7 @@ class Comment extends Component{
 
     dislikeComment = async (commentId) => {
         try{
-            await axios.get(`http://localhost:3000/api/comments/dislike/${commentId}`);
+            await axios.get(`http://127.0.0.1:8000/api/comments/dislike/${commentId}`);
             this.getInitialState()
         }
         catch(err){
