@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AddCommentModal from "../AddComentModal/AddCommentModal";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import "./DisplayComments.css";
