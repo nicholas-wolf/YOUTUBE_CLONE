@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import DisplayReplies from '../../components/DisplayReplies/DisplayReplies';
+import DisplayReplies from '../../components/Reply/Reply';
 import useAuth from '../../hooks/useAuth';
-import './CommentPage.css'
+
 
 const CommentPage = (props) => {
 
@@ -14,7 +14,7 @@ const CommentPage = (props) => {
 
 useEffect(()=>{
    let commentPage= props.comments.filter((comment)=>{
-        if (comment.id==commentId)
+        if (comment.id===commentId)
         return true
 
     }
@@ -29,7 +29,7 @@ useEffect(()=>{
         <div className='comment-box'>
             <div className='comment-title'>
             <h3 >COMMENT:</h3>
-            {props.comments[0].text}
+            {props.user.comments[0].text}
             </div>
    
 

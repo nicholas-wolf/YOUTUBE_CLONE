@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
-import './DisplayReplies.css'
+
  
 
 const DisplayReplies = (props) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useCustomForm from "../../hooks/useCustomForm";
-import "./AddCommentModal.css";
+
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 

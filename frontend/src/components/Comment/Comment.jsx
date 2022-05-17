@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
-import "./DisplayComments.css";
+
 import ReplyForm from "../ReplyForm/ReplyForm";
 import DisplayReplies from "../Reply/Reply";
 import LikeAndDislike from "../LikeAndDislike/LikeAndDislike";
