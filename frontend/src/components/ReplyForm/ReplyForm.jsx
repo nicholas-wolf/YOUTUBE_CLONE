@@ -5,7 +5,7 @@ import useAuth from '../../hooks/useAuth';
 
 
 
-const PostReply = (props) => {
+const ReplyForm = (props) => {
  
 
     let initialValues = {
@@ -60,4 +60,4 @@ const PostReply = (props) => {
      );
 }
  
-export default PostReply;
+export default ReplyForm;
