@@ -13,7 +13,6 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 
 
 // Component Imports
-import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 
 // Util Imports
@@ -64,8 +63,6 @@ function App() {
   return (
     <div>
       <SearchBar submitSearch={searchVideos}/>
-      <Navbar />
-      
       <Routes>
         <Route
           path="/"

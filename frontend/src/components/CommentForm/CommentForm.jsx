@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 
 let initialValues = {
+  user: 1,
   video_id: "",
   text: "",
   likes: 0,
@@ -25,7 +26,7 @@ const CommentForm = (props) => {
   async function postNewComment() {
     try {
       let response = await axios.post(
-        "http://127.0.0.1:8000/api/comments/",
+        "http://127.0.0.1:8000/api/comments/post/",
         formData,
         {
           headers: {

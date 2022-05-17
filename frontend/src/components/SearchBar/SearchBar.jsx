@@ -1,5 +1,5 @@
 
-import  {useState} from 'react';
+import  {useState, useContext} from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,7 +9,9 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,7 +56,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchBar(props) {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('');
+  const { logoutUser, user } = useContext(AuthContext);
+  
 
 
   function handleSubmit(event){
@@ -89,7 +93,9 @@ export default function SearchBar(props) {
                   component="div"
                   sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
               >
-                  Youtube Clone
+                  <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                    <b>YouTube Clone</b>
+                  </Link>
               </Typography>
               <Search >
                     <IconButton type="submit" onClick={handleSubmit}>
@@ -104,6 +110,13 @@ export default function SearchBar(props) {
                   />
                 
               </Search>
+              <li>
+                {user ? (
+                  <button onClick={logoutUser}>Logout</button>
+                ) : (
+                  <button onClick={() => Navigate("/login")}>Login</button>
+                )}
+              </li>
               </Toolbar>
           </AppBar>
           </Box>
