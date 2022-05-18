@@ -1,7 +1,7 @@
 // General Imports
 import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
-import { VIDEODATA } from "./VideoData";
+// import { VIDEODATA } from "./VideoData";
 import axios from "axios";
 
 // Pages Imports
@@ -23,12 +23,17 @@ import SearchBar from "./components/SearchBar/SearchBar";
 
 
 function App() {
-  const [suggestedVideos, setSuggestedVideos] = useState(VIDEODATA);
-  const [relatedVideos, setRelatedVideos] =useState(VIDEODATA);
+  // const [suggestedVideos, setSuggestedVideos] = useState(VIDEODATA);
+  // const [relatedVideos, setRelatedVideos] =useState(VIDEODATA);
   const [comments, setComments] = useState([])
   const [searchedVideos, setSearchedVideos] = useState([])
   const [selectedVideo, setSelectedVideo] = useState('')
   const navigate = useNavigate()
+  const NotFound = () =>{
+    return(
+      <div>Page Not Found</div>
+    )
+  }
   
   
   async function getVideoComments(videoId){
@@ -68,14 +73,15 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              <HomePage  videos={suggestedVideos} /> 
+              <HomePage   /> 
             </PrivateRoute>
           }
         />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/video/" element={<VideoPage selectedVideo={selectedVideo} comments={comments} getVideoComments={getVideoComments}/>} />
+        <Route path="/video/:videoId" element={<VideoPage selectedVideo={selectedVideo} comments={comments} getVideoComments={getVideoComments}/>} />
         <Route path="/results" element={<SearchPage videos={searchedVideos} submitVideoInfo={pickVideo} />} />
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
       <Footer />
     </div>
