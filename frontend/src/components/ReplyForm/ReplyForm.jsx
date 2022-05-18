@@ -1,63 +1,48 @@
-import React, { useState } from 'react';
-import useCustomForm from '../../hooks/useCustomForm';
-import axios from 'axios';
-import useAuth from '../../hooks/useAuth';
+import React, { useState } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
+import useAuth from "../../hooks/useAuth"
+import useCustomForm from "../../hooks/useCustomForm"
+import axios from 'axios'
+import { useParams } from "react-router-dom";
 
-
+let initialValues = {
+    user_id: '2',
+    text: 'some text',
+    comment_id: '2'
+}
 
 const ReplyForm = (props) => {
- 
-
-    let initialValues = {
-        text:" "
-    }
-    const [user, token] = useAuth()
-   const [formData, handleInputChange, handleSubmit] = useCustomForm(initialValues, postNewReply)
-    const [replies, setReplies] = useState()
-    if (!props.modal){
-        return null
-        }
-       
-    
-
-    async function postNewReply() {
+    const [user, token] = useAuth();
+    const [commentId, setCommentId] = useState(props.comment.id)
+    const [formData, handleInputChange, handleSubmit] = useCustomForm(
+        initialValues,
+        postNewReply
+    );
+    async function postNewReply(){
         try {
-          let response = await axios.post(
-            `http://127.0.0.1:8000/api/comments/${props.comment}/`,
-            formData,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
+            formData.comment_id = commentId
+            let response = await axios.post(`http://127.0.0.1:8000/api/replies/post/${commentId}/`, formData, {
+                headers: {
+                    Authorization: 'Bearer '+ token
+                }
+            })
+            if (response.status === 201){
+                await props.getCommentReplies(commentId)
             }
-          );
-          setReplies(response.data);
-    
-        } catch (error) {
-          console.log(error.message);
+        } catch (error){
+            console.log(error.message);
         }
-      }
-      console.log(props.modal);
-      
-  
-
-    return ( 
-        <div className='modal1'>
-            <form className='modal-window1' onSubmit={handleSubmit}>
-                <div className='input-button-box'>
-                <input type='text' name='text' value={formData.text} onChange={handleInputChange}>
-                   
-               
-                
-                </input>
-
-                
-                <button className='reply-button' type="submit">Submit</button>
-                <span onClick={props.onClose}>&times;</span>
-                </div>
+    }
+    return(
+        <div className="continer">
+            <form className="form" onSubmit={handleSubmit}>
+                <label>Reply:{""}
+                <input type="text" name="text" value={formData.text} onChange={handleInputChange} />
+                </label>
+                <button type="submit">Reply</button>
             </form>
         </div>
-     );
+    )
 }
- 
-export default ReplyForm;
+
+export default ReplyForm
