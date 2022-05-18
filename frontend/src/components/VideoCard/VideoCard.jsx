@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
 const VideoCard = (props) => {
-  console.log(props.video);
   const reduceText = (text) => {
     if (text.length > 50) {
         let tempText = text.substr(0,49)
@@ -17,14 +16,14 @@ const VideoCard = (props) => {
         return text
     }
 }
-
-const handleOnClick = (video_id) => {
-    props.parentCallback(video_id)
+const onClick = () => {
+  props.setSelectedVideo(props.video) 
+  
 }
 
   return (
           <Card sx={{display:'flex',justifyContent:'center' }}>
-            <Link to={"/video/:videoId" + props.video.id.videoId} >
+            <Link to={"/video/" + props.video.id.videoId} onClick={onClick}>
             <CardActionArea sx={{minWidth:300}}>
               <CardMedia
                 component="img"

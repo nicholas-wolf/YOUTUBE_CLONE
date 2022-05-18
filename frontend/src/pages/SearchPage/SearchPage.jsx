@@ -19,7 +19,7 @@ const SearchPage = (props) => {
                         <VideoCard 
                         video={video}
                         key={video.id.videoId}
-                        onClick={()=>{handleSubmit(props.video.id.videoId)}}
+                        setSelectedVideo={props.setSelectedVideo}
                         ></VideoCard>
                     )
                 })}

@@ -58,13 +58,6 @@ function App() {
       setSelectedVideo(result[0])
     }
   
-    useEffect(() => {
-      if(selectedVideo !== ''){
-      console.log('selectedVideo:',selectedVideo)
-      navigate(`/video/${selectedVideo.id.videoId}`)
-      }},[selectedVideo])
-
-    
   return (
     <div>
       <SearchBar submitSearch={searchVideos}/>
@@ -73,15 +66,22 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              <HomePage   /> 
+              <HomePage   videos={searchedVideos}  /> 
             </PrivateRoute>
           }
         />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/video/:videoId" element={<VideoPage selectedVideo={selectedVideo} comments={comments} getVideoComments={getVideoComments}/>} />
-        <Route path="/results" element={<SearchPage videos={searchedVideos} submitVideoInfo={pickVideo} />} />
-        <Route path='*' element={<NotFound/>}/>
+        <Route 
+          path="/results"  
+          element={
+            <PrivateRoute>
+              <SearchPage videos={searchedVideos} submitVideoInfo={pickVideo} setSelectedVideo={setSelectedVideo}  />
+            </PrivateRoute>
+          }
+          />
+        <Route path='*' element={<NotFound/>} />
       </Routes>
       <Footer />
     </div>
