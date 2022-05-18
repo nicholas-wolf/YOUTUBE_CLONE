@@ -37,7 +37,7 @@ function App() {
   }
 
   async function searchVideos(searchQuery){
-    let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchQuery}&key=AIzaSyCVVxJokbV2pHocNye7rQ3l1tV_FNbCPVU&type=video&part=snippet&fields=items(id,snippet)&maxResults=10`)
+    let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchQuery}&key=AIzaSyCVVxJokbV2pHocNye7rQ3l1tV_FNbCPVU&type=video&part=snippet&fields=items(id,snippet)&maxResults=9`)
     setSearchedVideos(response.data.items)
   }
 
@@ -74,7 +74,7 @@ function App() {
         />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/video/:videoId" element={<VideoPage selectedVideo={selectedVideo} comments={comments} getVideoComments={getVideoComments}/>} />
+        <Route path="/video/" element={<VideoPage selectedVideo={selectedVideo} comments={comments} getVideoComments={getVideoComments}/>} />
         <Route path="/results" element={<SearchPage videos={searchedVideos} submitVideoInfo={pickVideo} />} />
       </Routes>
       <Footer />

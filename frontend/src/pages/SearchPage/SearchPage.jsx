@@ -1,4 +1,5 @@
 import React from 'react';
+import VideoCard from '../../components/VideoCard/VideoCard';
 
 
 const SearchPage = (props) => {
@@ -12,14 +13,13 @@ const SearchPage = (props) => {
 
     console.log('search page vids', props.videos)
     return(
-        <div className='container'>
-                {props.videos.map((video, element) => {
+        <div style={{display: 'grid',margin:'2rem', gridTemplateColumns: 'repeat(3, 1fr)'}}>
+                {props.videos.map((video) => {
                     return(
-                        <div className='card' key={element}>
-                            <h3>{video.snippet.title}</h3>
-                            <h3>{video.id.videoId}</h3>
-                            <h4><a onClick={()=>{handleSubmit(video.id.videoId)}}>Play Video</a></h4>
-                        </div>
+                        <VideoCard 
+                        video={video}
+                        key={video.id.videoId}
+                        ></VideoCard>
                     )
                 })}
 

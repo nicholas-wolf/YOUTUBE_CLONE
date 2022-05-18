@@ -12,18 +12,11 @@ const DisplayReplies = (props) => {
     useEffect(()=>{
     const fetchReplies = async ()=>{
         try {
-            
-        
-            
-        
         let response = await axios.get(`http://127.0.0.1:8000/api/comments/${props.commentId}/`, {
             headers: {
                 Authorization: "Bearer " + token
-            }
-            
+            }      
         }
-      
-
         )
         setReplies(response.data)
         console.log(response.data)
