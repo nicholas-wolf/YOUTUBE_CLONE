@@ -1,78 +1,45 @@
-import React from "react";
-import ClassNames from "classnames";
-import "../../App.css";
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
-class Button extends React.Component {
-  constructor(props) {
-    super(props);
+const LikeandDislike = (props) => {
+    const [like, setLike] = useState(false)
+    const [dislike, setDislike] = useState(false)
 
-    this.state = {
-      liked: false,
-      disliked: false,
-      initLike: 0,
-      initDislike: 0,
-    };
+    async function likeOrDislike(){
+        let body={}
+        let response=''
+        if (like === true){
+            body = {
+                user: props.comment.user,
+                video_id: props.comment.video_id,
+                text: props.comment.text,
+                likes: props.comment.likes +1,
+                dislikes: props.comment.dislikes,
+            }
+            response = await axios.put(`http://127.0.0.1:8000/api/comments/edit/${props.comment.id}/`, body)
+        }
+            else if (dislike === true){
+                body = {
+                    user: props.comment.user,
+                    video_id: props.comment.video_id,
+                    text: props.comment.text,
+                    likes: props.comment.likes,
+                    dislikes: props.comment.dislikes +1
+                }
+                response = await axios.put(`http://127.0.0.1:8000/api/comments/edit/${props.comment.id}/`, body)
+            }
+            if (response.status === 201){
+                await props.getVideoComments(props.videoId)
+            }
+            }
+        useEffect(() => {
+            likeOrDislike()
+        }, [like, dislike])
 
-    this.onLikeClick = this.onLikeClick.bind(this);
-    this.onDisLikeClick = this.onDisLikeClick.bind(this);
-  }
-
-  onLikeClick() {
-    if (!this.state.disliked) {
-      this.setState({
-        liked: !this.state.liked,
-      });
-    } else {
-      this.setState({
-        liked: true,
-        disliked: false,
-      });
-    }
-  }
-
-  onDisLikeClick() {
-    if (!this.state.liked) {
-      this.setState({
-        disliked: !this.state.disliked,
-      });
-    } else {
-      this.setState({
-        liked: false,
-        disliked: true,
-      });
-    }
-  }
-
-  render() {
-    const classLikeButton = ClassNames({
-      "like-button": true,
-      liked: this.state.liked,
-    });
-
-    const classDisLikeButton = ClassNames({
-      "dislike-button": true,
-      disliked: this.state.disliked,
-    });
-
-    return (
-      <div>
-        <span className={classLikeButton} onClick={this.onLikeClick}>
-          Like |
-          <span className="likes-counter">
-            {this.state.liked ? this.state.initLike + 1 : this.state.initLike}
-          </span>
-        </span>
-        <span className={classDisLikeButton} onClick={this.onDisLikeClick}>
-          Dislike |
-          <span className="dislikes-counter">
-            {this.state.disliked
-              ? this.state.initDislike + 1
-              : this.state.initDislike}
-          </span>
-        </span>
-      </div>
-    );
-  }
+    return(<div>
+        <button onClick={() => setLike(true)}>Like</button>
+        <button onClick={() => setDislike(true)}>Dislike</button>
+    </div>)
 }
 
-export default Button;
+export default LikeandDislike

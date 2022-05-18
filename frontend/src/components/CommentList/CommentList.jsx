@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import LikeDislike from './';
+import LikeandDislike from '../LikeandDislike/LikeandDislike';
 import Reply from '../Reply/Reply';
 import ReplyForm from '../ReplyForm/ReplyForm'
 import axios from 'axios';
@@ -25,7 +25,7 @@ const CommentList = (props) =>{
                   <h3>{el.text}</h3>
                   <h4>likes:{el.likes}</h4>
                   <h4>dislikes:{el.dislikes}</h4>
-                    {/* <LikeDislike getVideoComments={props.getVideoComments} comment={el} videoId={el.video_id}/> */}
+                    <LikeandDislike getVideoComments={props.getVideoComments} comment={el} videoId={el.video_id}/>
                     <Reply replies={replies} getCommentReplies={getCommentReplies} commentId={el.id} />
                     <ReplyForm replies={replies} getCommentReplies={getCommentReplies} comment={el} /> 
                 </div>
