@@ -17,7 +17,7 @@ import Footer from "./components/Footer/Footer";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SearchBar from "./components/SearchBar/SearchBar";
 
 
@@ -57,7 +57,7 @@ function App() {
       })
       setSelectedVideo(result[0])
     }
-  
+  console.log(getVideoComments)
   return (
     <div>
       <SearchBar submitSearch={searchVideos}/>

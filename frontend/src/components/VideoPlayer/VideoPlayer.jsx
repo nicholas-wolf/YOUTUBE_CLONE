@@ -6,8 +6,8 @@ import { useParams } from 'react-router-dom';
     
     return (
       <div >
-        <iframe title="myFrame"
-            src={`https://www.youtube.com/embed/${videoId}`}>
+        <iframe id="ytplayer" type="text/html" width="720" height="480"
+            src={`https://www.youtube.com/embed/${videoId}`}frameborder="0">
         </iframe>
       </div>
     );
