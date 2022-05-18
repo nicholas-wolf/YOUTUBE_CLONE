@@ -1,6 +1,7 @@
 import React from "react";
 import CommentForm from "../../components/CommentForm/CommentForm";
 import CommentList from "../../components/CommentList/CommentList";
+import LikeandDislike from "../../components/LikeAndDislike/LikeAndDislike";
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 
 
@@ -16,6 +17,7 @@ const VideoPage = (props) => {
             <CommentForm videoId={props.selectedVideo.id.videoId}></CommentForm>
             <CommentList style={{margin:'2rem'}} comments={props.comments} getVideoComments={props.getVideoComments} videoId={props.selectedVideo.id.videoId}></CommentList>
             {/* <RelatedVideos videos={props.videos}></RelatedVideos> */}
+            <LikeandDislike></LikeandDislike>
 
         </div>
      );

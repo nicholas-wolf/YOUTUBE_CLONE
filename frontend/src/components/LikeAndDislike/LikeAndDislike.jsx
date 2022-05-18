@@ -33,7 +33,7 @@ const LikeandDislike = (props) => {
             }
             }
         useEffect(() => {
-            likeOrDislike()
+            props.likeOrDislike(props.video)
         }, [like, dislike])
 
     return(<div>

@@ -13,7 +13,7 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 
 
 // Component Imports
-import Footer from "./components/Footer/Footer";
+// import Footer from "./components/Footer/Footer";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
@@ -42,7 +42,7 @@ function App() {
   }
 
   async function searchVideos(searchQuery){
-    let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchQuery}&key=AIzaSyCVVxJokbV2pHocNye7rQ3l1tV_FNbCPVU&type=video&part=snippet&fields=items(id,snippet)&maxResults=9`)
+    let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchQuery}&key=AIzaSyCfPLmQ1ubB2YNNMkYwmhfhzLpQEkEfUtE&type=video&part=snippet&fields=items(id,snippet)&maxResults=9`)
     setSearchedVideos(response.data.items)
   }
 
@@ -83,7 +83,7 @@ function App() {
           />
         <Route path='*' element={<NotFound/>} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
