@@ -24,7 +24,7 @@ const CommentForm = (props) =>{
     async function postNewComment(){
         try {
             formData.video_id=videoId
-            let response = await axios.post('http://127.0.0.1:8000/api/comments/post/', formData, {
+            let response = await axios.post('http://127.0.0.1:8000/api/comments/post/', formData,  {
                 headers: {
                     Authorization: 'Bearer ' + token
                 }

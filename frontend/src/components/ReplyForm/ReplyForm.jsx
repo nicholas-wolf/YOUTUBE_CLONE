@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 let initialValues = {
     user_id: '2',
-    text: 'some text',
+    text: '',
     comment_id: '2'
 }
 
