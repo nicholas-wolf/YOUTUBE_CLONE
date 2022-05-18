@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import LikeandDislike from '../LikeandDislike/LikeandDislike';
+import LikeandDislike from '../LikeAndDislike/LikeandDislike';
 import Reply from '../Reply/Reply';
 import ReplyForm from '../ReplyForm/ReplyForm'
 import axios from 'axios';
