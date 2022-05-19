@@ -20,7 +20,12 @@ const CommentForm = (props) =>{
         initialValues,
         postNewComment
         );
-
+    
+       
+        useEffect(() => {
+            props.getVideoComments(props.videoId);
+        }, [props.comments])   
+        
     async function postNewComment(){
         try {
             formData.video_id=videoId
@@ -29,8 +34,9 @@ const CommentForm = (props) =>{
                     Authorization: 'Bearer ' + token
                 }
             })
-            if (response.status === 201){
-                await props.getVideoComments(videoId)
+            if (response.status === 201){ 
+                console.log('did I get here')
+                props.getVideoComments(videoId)
             }
         } catch (error) {
             console.log(error.message);

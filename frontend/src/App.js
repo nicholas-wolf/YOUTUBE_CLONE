@@ -57,7 +57,7 @@ function App() {
       })
       setSelectedVideo(result[0])
     }
-  console.log(getVideoComments)
+  
   return (
     <div>
       <SearchBar submitSearch={searchVideos}/>

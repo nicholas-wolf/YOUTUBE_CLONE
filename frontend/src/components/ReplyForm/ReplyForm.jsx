@@ -1,9 +1,8 @@
-import React, { useState } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
+import React, { useState, useEffect } from "react"
 import useAuth from "../../hooks/useAuth"
 import useCustomForm from "../../hooks/useCustomForm"
 import axios from 'axios'
-import { useParams } from "react-router-dom";
+
 
 let initialValues = {
     user_id: '2',
@@ -13,14 +12,20 @@ let initialValues = {
 
 const ReplyForm = (props) => {
     const [user, token] = useAuth();
-    const [commentId, setCommentId] = useState(props.comment.id)
+    const [commentId, setCommentId] = useState(props.comment.id);
     const [formData, handleInputChange, handleSubmit] = useCustomForm(
         initialValues,
         postNewReply
     );
+   
+    useEffect(() => {
+        setCommentId(props.comment.id)
+    },[props.comment.id])
+    
     async function postNewReply(){
         try {
-            formData.comment_id = commentId
+            formData.comment = commentId
+            formData.user = user.id
             let response = await axios.post(`http://127.0.0.1:8000/api/replies/post/${commentId}/`, formData, {
                 headers: {
                     Authorization: 'Bearer '+ token

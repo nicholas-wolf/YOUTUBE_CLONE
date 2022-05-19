@@ -64,16 +64,10 @@ export default function SearchBar(props) {
   function handleSubmit(event){
     event.preventDefault();
     let newSearchTerm = searchTerm
-    console.log(newSearchTerm)
     props.submitSearch(newSearchTerm)
     navigate('/results')
 }
 
-
-
-
-
-  
     return (
           <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
